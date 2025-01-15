@@ -1,0 +1,72 @@
+const steps = [
+    {
+        question: "Qual foi o dia em que nos conhecemos?",
+        answer: "22",
+        hint: "Dica: Foi em um dia especial que nunca esquecemos."
+    },
+    {
+        question: "Onde nos conhecemos?",
+        answer: "paraty",
+        hint: "Dica: Um lugar bonito no litoral do Rio de Janeiro."
+    },
+    {
+        question: "Onde foi nosso primeiro beijo?",
+        answer: "rodoviaria",
+        hint: "Dica: Um lugar de despedidas e reencontros."
+    },
+    {
+        question: "Qual time eu torço?",
+        answer: "corinthians",
+        hint: "Dica: É o time do coração, conhecido como 'Timão'."
+    },
+    {
+        question: "Qual foi o primeiro filme que assistimos no cinema?",
+        answer: "todo tempo que temos",
+        hint: "Dica: Um filme sobre o valor do tempo e das relações."
+    },
+    {
+        question: "Onde foi nosso primeiro encontro depois de Paraty?",
+        answer: "shopping",
+        hint: "Dica: Um lugar com muitas lojas e onde demos boas risadas."
+    },
+    {
+        question: "Com quem você quer fazer novas descobertas e planejar um futuro juntos?",
+        answer: "rafael",
+        hint: "Dica: Alguém que te ama muito."
+    }
+];
+
+let currentStep = 0;
+
+function displayQuestion() {
+    const questionDiv = document.getElementById('question');
+    questionDiv.innerHTML = `
+        <p>${steps[currentStep].question}</p>
+        <p><i>${steps[currentStep].hint}</i></p>
+    `;
+    document.getElementById('answer').value = ""; // Limpa o campo de resposta
+}
+
+function checkAnswer() {
+    const userAnswer = document.getElementById('answer').value.toLowerCase().trim();
+    const messageDiv = document.getElementById('message');
+
+    if (userAnswer === steps[currentStep].answer) {
+        currentStep++;
+        if (currentStep < steps.length) {
+            displayQuestion();
+            messageDiv.textContent = "Correto! Próxima pergunta...";
+        } else {
+            document.getElementById('game').innerHTML = `
+                <h1>Parabéns!</h1>
+                <p>Você chegou ao final do Escape Room.</p>
+                <h2>Agora, feche os olhos e sinta o momento...</h2>
+                <p>Que tal planejarmos um futuro juntos, repleto de novos momentos, descobertas e muito amor?</p>
+            `;
+        }
+    } else {
+        messageDiv.textContent = "Resposta incorreta. Tente novamente!";
+    }
+}
+
+window.onload = displayQuestion;
